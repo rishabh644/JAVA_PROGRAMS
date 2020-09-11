@@ -1,0 +1,29 @@
+class Account {
+public int balance;
+public int accountNo;
+void displayBalance(){
+System.out.println("Account No: "+accountNo+" Balance: "+balance);
+}
+synchronized void deposit(int amount){
+balance=balance+amount;
+System.out.println(amount +" is deposited ");
+displayBalance();
+}
+synchronized void withdraw(int amount){
+balance=balance-amount;
+System.out.println(amount + "is withdrawn");
+displayBalance();
+}
+}
+class TransactionDeposit implements Runnable{
+int amount;
+Account accountX;
+TransactionDeposit(Account x,int amount){
+accountX=x;
+this.amount=amount;
+new Thread(this).start();
+}
+public void run(){
+accountX.deposit(amount);
+}
+}
